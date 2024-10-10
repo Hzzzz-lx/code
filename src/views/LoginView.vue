@@ -26,11 +26,10 @@
           />
         </Space>
         <div class="w-full my-[10px]">
-          <Radio v-model:checked="checked" class="text-gray-500"
-            >我已阅读并同意<Button type="link">《服务协议》</Button> 和<Button
-              type="link"
-              >《隐私政策》</Button
-            >
+          <Radio v-model:checked="checked" class="text-gray-500">
+            我已阅读并同意
+            <Button type="link">《服务协议》</Button> 和
+            <Button type="link">《隐私政策》</Button>
           </Radio>
         </div>
 
@@ -38,25 +37,33 @@
           @click="loginHandle"
           class="w-full mt-[30px] h-[60px]"
           type="primary"
-          >登 录</Button
-        >
+          >登 录</Button>
       </div>
     </div>
   </div>
 </template>
+
 <script setup>
 import { ref } from "vue";
 import { Button, Carousel, Space, Input, Radio, App } from "ant-design-vue";
 import { getData } from "@/service/api";
 import to from "await-to-js";
 import { useRouter } from "vue-router";
-const router = useRouter()
+
+const router = useRouter();
 const { notification } = App.useApp();
 const useLoginInfo = ref({
   username: "2901513276@qq.com",
   password: "He040805",
 });
+const checked = ref(false); 
+
 const loginHandle = async () => {
+  if (!checked.value) {
+    notification.error({ message: "请先阅读并同意服务协议和隐私政策" });
+    return; // 如果复选框未勾选，返回并阻止登录操作
+  }
+
   const loginData = {
     grant_type: "password",
     username: useLoginInfo.value.username,
@@ -65,8 +72,14 @@ const loginHandle = async () => {
     client_secret: import.meta.env.VITE_CLIENT_SECRET,
     scope: import.meta.env.VITE_CLIENT_SCOPE,
   };
+
   const [err, res] = await to(getData(loginData));
-  if (!err) notification.success({ message: "登录成功" });
-router.replace('/home')
+  if (!err && res) {
+    notification.success({ message: "登录成功" });
+    localStorage.setItem('userToken', res.data.access_token); // 存储Token
+    router.replace('/');
+  } else {
+    notification.error({ message: "登录失败" });
+  }
 };
 </script>

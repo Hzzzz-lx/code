@@ -85,7 +85,7 @@
 <script setup>
 import { ref } from 'vue'
 import { Icon } from '@iconify/vue/dist/iconify.js'
-const selectedKeys = ref(['4'])
+const selectedKeys = ref(['5'])
 </script>
 <style scoped>
 #components-layout-demo-fixed-sider .logo {

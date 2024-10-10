@@ -48,7 +48,18 @@
 </template>
 <script setup>
 import { useRouter } from "vue-router";
+import { getKu } from "@/service/api";
+import to from "await-to-js";
 const router = useRouter();
+const getHandle = async () => {
+  const getData = {
+access_token:'367ed6ed6ee393ada901ba02fed8f8a0',
+  };
+  const [err, res] = await to(getKu(getData));
+  console.log(err,res);
+
+}
+onMounted(getHandle);
 const btn = ()=>{
    router.replace("/canku");
 }

@@ -23,21 +23,9 @@
 </template>
 <script setup>
 import { useRouter } from "vue-router";
-// import { getToken } from "@/service/api";
-// import to from "await-to-js";
-// const Tokendata = {
-//   "access_token":"367ed6ed6ee393ada901ba02fed8f8a0",
-//   "token_type":'Bearer',
-//   "expires_in":7200,
-//   "refresh_token":"",
-//   "scope":'projects user_info issues notes'
-// }
-// const [err, res] = await to(getToken());
-// console.log(err,res);
-
 const router = useRouter();
 const btn = ()=>{
-   router.replace("/canku");
+ router.replace('/canku')
 }
 const onView = () => {
   router.replace("/");

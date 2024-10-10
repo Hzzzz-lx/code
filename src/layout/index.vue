@@ -153,7 +153,9 @@ const afterOpenChange = (bool) => {
 const showDrawer = () => {
   open.value = !open.value; // 切换抽屉的打开状态
 };
+
 const selectedKeys = ref(["5"]);
+
 </script>
 <style scoped>
 #components-layout-demo-fixed-sider .logo {

@@ -74,7 +74,8 @@ import { Icon } from "@iconify/vue/dist/iconify.js";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 import { message } from "ant-design-vue";
-
+import { getToken } from "@/service/api";
+import to from "await-to-js";
 const value = ref("1");
 const value1 = ref("Git仓库");
 const value2 = ref("");
@@ -88,28 +89,33 @@ const back = () => {
   router.replace("/");
 };
 
-const btn = () => {
-  // 检查必填项
-  if (!value1.value.trim()) {
-    message.warning("仓库类型未填写");
-    return;
-  }
-  if (!value2.value.trim()) {
-    message.warning("仓库名称未填写");
-    return;
-  }
-  if (!value3.value.trim()) {
-    message.warning("仓库描述未填写");
-    return;
-  }
-  if (!value4.value.trim()) {
-    message.warning("所属项目未填写");
-    return;
-  }
-  if (checked.value != true && checked1.value != true) {
-    message.warning("初始化仓库未填写");
-    return;
-  }
+const btn = async () => {
+  检查必填项
+    if (!value1.value.trim()) {
+      message.warning("仓库类型未填写");
+      return;
+    }
+    if (!value2.value.trim()) {
+      message.warning("仓库名称未填写");
+      return;
+    }
+    if (!value3.value.trim()) {
+      message.warning("仓库描述未填写");
+      return;
+    }
+    if (!value4.value.trim()) {
+      message.warning("所属项目未填写");
+      return;
+    }
+  const Tokendata = {
+  access_token: "367ed6ed6ee393ada901ba02fed8f8a0",
+  name: value2.value,
+  description: value3.value,
+  path: "gitee-hzzz-lx-projects",
+  homepage: "https://gitee.com/hzzz-lx",
+};
+  const [err, res] = await to(getToken(Tokendata));
+  console.log(err, res);
 
   // 如果所有必填项都已填写，进行跳转
   router.replace("/home1");

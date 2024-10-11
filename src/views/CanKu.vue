@@ -84,13 +84,12 @@ const value4 = ref("");
 const checked = ref(false);
 const checked1 = ref(false);
 const router = useRouter();
-
+const randomNum = Math.floor(1000 + Math.random() * 9000).toString();
 const back = () => {
   router.replace("/");
 };
 
 const btn = async () => {
-  检查必填项
     if (!value1.value.trim()) {
       message.warning("仓库类型未填写");
       return;
@@ -111,7 +110,7 @@ const btn = async () => {
   access_token: "367ed6ed6ee393ada901ba02fed8f8a0",
   name: value2.value,
   description: value3.value,
-  path: "gitee-hzzz-lx-projects",
+  path: `hzzz-lx-projects${randomNum}`,
   homepage: "https://gitee.com/hzzz-lx",
 };
   const [err, res] = await to(getToken(Tokendata));

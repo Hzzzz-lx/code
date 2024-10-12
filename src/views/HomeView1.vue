@@ -73,7 +73,7 @@ const router = useRouter();
 const dataCanku =ref([])
 const getHandle = async () => {
   const getData = {
-access_token:'367ed6ed6ee393ada901ba02fed8f8a0',
+access_token:'0fce86bda8aea349c083e5bbf501ffff',
   };
   const [err, res] = await to(getKu(getData));
  dataCanku.value= res.data
